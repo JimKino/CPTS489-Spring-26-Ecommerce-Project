@@ -1,0 +1,20 @@
+body{
+    background-color: #f4f4f4;
+}
+
+.logo{
+    display: flex;
+    
+    background-color: rgb(17, 157, 129);
+    text-align: left;
+    text-indent: 10%;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 20px 0px;
+    font-family: 'Arial', sans-serif;
+}
+
+.logo a {
+    color: rgb(240, 255, 255);
+    text-decoration: none;
+}
