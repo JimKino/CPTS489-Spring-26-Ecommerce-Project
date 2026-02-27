@@ -1,0 +1,35 @@
+.productContainer {
+    display: flex;
+}
+
+.productImage {
+    flex: 4;
+    max-width: 40%;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.productImage img{
+    width: 100%;
+    height: auto;
+}
+.productDesc {
+    flex: 4;
+
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.productBuy {
+    flex: 2;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(249, 249, 249);
+}
+
+.productReviews {
+    flex: 10;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+}
