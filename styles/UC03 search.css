@@ -1,0 +1,28 @@
+.itemsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.productContainer {
+    flex: 1;
+    display: flex;
+}
+
+.productImage {
+    flex: 4;
+    max-width: 40%;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.productImage img{
+    width: 100%;
+    height: auto;
+}
+.productDesc {
+    flex: 4;
+
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
