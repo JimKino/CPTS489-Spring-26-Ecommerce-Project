@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UC-013 Manage Users</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/UC-013.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="#">Grocery Store</a>
+        <div class="searchBar">
+            <input type="text" id="search" placeholder="Search users">
+            <button type="submit">Search</button>
+        </div>
+    </div>
+
+    <div class="mainContainer">
+        <aside class="filtersContainer">
+            <h2>Manage Users</h2>
+            <hr>
+
+            <h3>Filters</h3>
+            <p class="sectionLabel">Role</p>
+
+            <div>
+                <input type="checkbox" id="buyer">
+                <label for="buyer">Buyer</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="seller">
+                <label for="seller">Seller</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="admin">
+                <label for="admin">Admin</label>
+            </div>
+        </aside>
+
+        <main class="itemsContainer">
+            <h2>User Accounts</h2>
+            <p class="itemMeta">
+                Select a user account to <strong>view</strong> or <strong>delete</strong>.
+            </p>
+
+            <div class="userCard">
+                <div class="userTop">
+                    <div>
+                        <h3>Alice Johnson</h3>
+                        <p class="itemMeta">
+                            <span class="roleTag">Buyer</span>
+                            <span class="roleTag">User ID: U101</span>
+                        </p>
+                        <p class="itemMeta">Email: alice@email.com</p>
+                    </div>
+
+                    <div class="userActions">
+                        <a class="btn btnView" href="view-user.html">View</a>
+                        <a class="btn btnDelete" href="delete-user.html">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="userCard">
+                <div class="userTop">
+                    <div>
+                        <h3>Michael Lee</h3>
+                        <p class="itemMeta">
+                            <span class="roleTag">Seller</span>
+                            <span class="roleTag">User ID: U102</span>
+                        </p>
+                        <p class="itemMeta">Email: michael@email.com</p>
+                    </div>
+
+                    <div class="userActions">
+                        <a class="btn btnView" href="view-user.html">View</a>
+                        <a class="btn btnDelete" href="delete-user.html">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="userCard">
+                <div class="userTop">
+                    <div>
+                        <h3>Admin User</h3>
+                        <p class="itemMeta">
+                            <span class="roleTag">Admin</span>
+                            <span class="roleTag">User ID: U103</span>
+                        </p>
+                        <p class="itemMeta">Email: admin@email.com</p>
+                    </div>
+
+                    <div class="userActions">
+                        <a class="btn btnView" href="view-user.html">View</a>
+                        <a class="btn btnDisabled" href="#">Cannot Delete</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

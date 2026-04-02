@@ -1,0 +1,38 @@
+.productContainer {
+    display: flex;
+}
+
+.productImage {
+    flex: 4;
+    max-width: 40%;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+
+.productImage input{
+    padding: 250px;
+}
+
+.productDesc {
+    flex: 4;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+
+#item_name{
+    display: inline-block;
+    width: 70%;
+}
+
+#item_price{
+    display: inline-block;
+    width: 29%;
+}
+
+#item_desc{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 500px;
+}
