@@ -32,6 +32,50 @@ h1{
     padding-bottom: 100px;
 }
 
-.visible {
-    display: block;
+.productReviews {
+    background: white;
+    border-radius: 10px;
+    border: 0.5px solid #e0e0e0;
+    padding: 24px;
+}
+
+.reviewsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reviewsHeader h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.reviewForm p {
+    margin: 0;
+}
+
+.star {
+    font-size: 28px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.star.selected {
+    color: rgb(17, 157, 129);
+}
+
+.reviewForm {
+    display: none;
+}
+
+.reviewForm.visible {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    border: 0.5px solid #e0e0e0;
+    margin-top: 12px;
 }
