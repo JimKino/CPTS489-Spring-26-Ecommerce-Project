@@ -26,3 +26,22 @@
     padding: 20px;
     background-color: rgb(255, 255, 255);
 }
+
+.searchContainer {
+    display: flex;
+    gap: 5px;
+}
+
+.filtersContainer {
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+}
+
+.itemsContainer {
+    flex: 10;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+}
