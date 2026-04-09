@@ -63,20 +63,13 @@ body{
     margin-bottom: 10px;
 }
 
-.checkout p {
+.checkout h1 {
     font-weight: bold;
     font-size: 20px;
 }
 
 #card {
     width: 98%;
-}
-
-.checkout button {
-    font-weight: bold;
-    color: white;
-    border-color: rgb(17, 157, 129);
-    background-color: rgb(17, 157, 129);
 }
 
 .cart {
@@ -91,4 +84,15 @@ body{
 .cart p {
     font-weight: bold;
     font-size: 20px;
+}
+
+.error {
+    display: none;
+    color: red;
+    margin-bottom: 2px;
+    font-size: 15px;
+}
+
+.visible{
+    display: block;
 }
