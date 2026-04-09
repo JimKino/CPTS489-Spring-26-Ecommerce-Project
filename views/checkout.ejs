@@ -12,13 +12,14 @@
 
     <div class="main">
         <div class="checkout">
-        <p>Please input checkout information</p>
+        <h1>Please input checkout information</h1>
         <input type="text" id="fname" placeholder="First Name">
         <input type="text" id="lname" placeholder="Last Name">
         <input type="text" id="card" placeholder="Card Number">
         <input type="text" id="experation" placeholder="Experation Date">
         <input type="text" id="cvv" placeholder="CVV">
-        <Button>Check out</button>
+        <p class="error" id="error">ERROR: Invalid Information</p>
+        <Button type="submit" id ="btnSubmit" class="btn btn-primary">Check out</button>
         </div>
         <div class="cart">
             <p>Your Cart</p>
@@ -61,5 +62,6 @@
             </table>
         </div>
     </div>
+    <script src="javascripts/checkout.js"></script>
     </body>
 </html> 
