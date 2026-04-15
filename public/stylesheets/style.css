@@ -1,15 +1,21 @@
-body {
+body{
     background-color: #f4f4f4;
 }
 
-.logo {
+.logo{
     background-color: rgb(17, 157, 129);
     display: flex;
-    align-items: center;
-    padding: 0 20px;
-    height: 80px;
-    gap: 16px;
+    justify-content: space-between;
+    text-align: left;
+    text-indent: 5%;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 20px 40px;
     font-family: 'Arial', sans-serif;
+}
+
+.logo input {
+    max-width: 75%;
 }
 
 .logo a {
@@ -18,93 +24,21 @@ body {
     white-space: nowrap;
 }
 
-.logo img {
-    transition: filter 0.15s ease;
-    cursor: pointer;
-    filter: invert(1);
-    width: 32px;
-    height: 32px;
-    display: block;
-}
-
-.logo img:hover {
-    filter: invert(1) brightness(0.6);
-}
-
-.logo img:active {
-    filter: invert(1) brightness(0.3);
-}
-
-.logo .title {
-    font-size: 28px;
-    font-weight: bolder;
-    flex-shrink: 0;
-    color: rgb(240, 255, 255);
-}
-
-.logo .search {
+.searchContainer {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    gap: 5px;
+}
+
+.filtersContainer {
     flex: 1;
-    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
 }
 
-.logo .search input {
-    width: 100%;
-    min-width: 80px;
-}
-
-.logo .logo .cart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    position: relative;
-}
-
-.logo .cart a {
-    position: relative;
-    display: inline-block;
-}
-
-.logo .user {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.logo .user .btn {
-    color: rgb(240, 255, 255);
-    border: 1.5px solid rgba(240, 255, 255, 0.6);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 14px;
-    white-space: nowrap;
-    transition: background 0.15s ease;
-    width: 100%;
-    text-align: center;
-}
-
-.logo .user .btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.logo .cart-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: red;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
+.itemsContainer {
+    flex: 10;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
 }

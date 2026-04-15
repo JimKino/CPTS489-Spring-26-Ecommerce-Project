@@ -1,13 +1,40 @@
-h1{
-    display: inline-block;
+.productContainer {
+    display: flex;
 }
 
-#btnReview{
-    float: right;
+.productImage {
+    flex: 4;
+    max-width: 40%;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.productImage img{
+    width: 100%;
+    height: auto;
+}
+.productDesc {
+    flex: 4;
+
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.productBuy {
+    flex: 2;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(249, 249, 249);
+}
+
+.productReviews {
+    flex: 10;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
 }
 
 .input_box{
-    display: none;
     padding: 30px;
     border-style: solid;
     border-radius: 50px;
@@ -30,52 +57,4 @@ h1{
     margin-top: 10px;
     margin-bottom: 10px;
     padding-bottom: 100px;
-}
-
-.productReviews {
-    background: white;
-    border-radius: 10px;
-    border: 0.5px solid #e0e0e0;
-    padding: 24px;
-}
-
-.reviewsHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.reviewsHeader h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.reviewForm p {
-    margin: 0;
-}
-
-.star {
-    font-size: 28px;
-    color: #ddd;
-    cursor: pointer;
-}
-
-.star.selected {
-    color: rgb(17, 157, 129);
-}
-
-.reviewForm {
-    display: none;
-}
-
-.reviewForm.visible {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 16px;
-    border: 0.5px solid #e0e0e0;
-    margin-top: 12px;
 }

@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/UC10_add_item.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/UC10_add_item.css">
 </head>
 <body>
-    <%- include('partials/header') %>
-
-    <div class="mainContainer">
-        <div class="productContainer">
-            <div class="productImage">
-                <input type="image" class="form-control" src="/images/input_image.jpg" alt="Submit">
-            </div>
-            <div class="productDesc">
-                <h1>Product Information</h1>
-                <input type="text" class="form-control" id="item_name" placeholder="Product Name">
-                <input type="text" class="form-control" id="item_price" placeholder="Product price ($00.00)">
-                <input type="text" class="form-control" id="item_desc" placeholder="Product Description">
-                <button type="submit" class="btn btn-primary">Add Product</button>
-            </div>
-        </div>
+  <div class="logo">
+    <a href="/home">Grocery Store</a>
+    <form action="/search" method="GET" class="d-flex" style="gap:8px; flex:1; margin:0 20px;">
+      <input type="text" class="form-control" name="q" placeholder="Search">
+      <button type="submit" class="btn btn-light">Search</button>
+    </form>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <a href="/seller/products">My Listings</a>
+      <a href="/seller/orders">Seller Orders</a>
     </div>
-    
+  </div>
 
+  <div class="mainContainer">
+    <div class="productContainer">
+      <div class="productImage">
+        <img src="/images/input_image.jpg" alt="Product placeholder" style="width:100%;">
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+      <div class="productDesc">
+        <h1>Product Information</h1>
+
+        <% if (error) { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/seller/add-item" method="POST">
+          <input type="text" class="form-control mb-2" id="item_name" name="name" placeholder="Product Name" value="<%= formData.name || '' %>">
+          <input type="number" step="0.01" class="form-control mb-2" id="item_price" name="price" placeholder="Product price ($00.00)" value="<%= formData.price || '' %>">
+          <input type="number" class="form-control mb-2" name="stock" placeholder="Stock count" value="<%= formData.stock || '' %>">
+          <textarea class="form-control" id="item_desc" name="desc" placeholder="Product Description"><%= formData.desc || '' %></textarea>
+          <button type="submit" class="btn btn-primary mt-3">Add Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

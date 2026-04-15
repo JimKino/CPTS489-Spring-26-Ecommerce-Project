@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">  
-    <link rel="stylesheet" href="/stylesheets/UC03 search.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/UC03 search.css">
 </head>
 <body>
-    <%- include('partials/header') %>
-
-    <div class="searchContainer">
-        <%- include('partials/productList') %>
+  <div class="logo">
+    <a href="/home">Grocery Store</a>
+    <form action="/search" method="GET" class="d-flex" style="gap:8px; flex:1; margin:0 20px;">
+      <input type="text" class="form-control" name="q" placeholder="Search">
+      <button type="submit" class="btn btn-light">Search</button>
+    </form>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <a href="/cart">Cart</a>
+      <a href="/order-history">Orders</a>
+      <a href="/profile">Profile</a>
+      <% if (currentUser.role === 'seller') { %>
+        <a href="/seller/add-item">Add Item</a>
+        <a href="/seller/products">My Listings</a>
+        <a href="/seller/orders">Seller Orders</a>
+      <% } %>
+      <% if (currentUser.role === 'admin') { %>
+        <a href="/admin/users">Manage Users</a>
+        <a href="/admin/analytics">Analytics</a>
+        <a href="/admin/reviews">Reviews</a>
+      <% } %>
+      <form action="/logout" method="POST">
+        <button type="submit" class="btn btn-light btn-sm">Logout</button>
+      </form>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <div class="itemsContainer">
+    <% products.forEach(product => { %>
+      <div class="productContainer">
+        <div class="productImage">
+          <img src="<%= product.image %>" alt="<%= product.name %>">
+        </div>
+        <div class="productDesc">
+          <h1><%= product.name %></h1>
+          <h2>$<%= product.price.toFixed(2) %></h2>
+          <p><%= product.desc %></p>
+          <p>Stock: <%= product.stock %></p>
+          <a class="btn btn-primary" href="/products/<%= product.id %>">View Product</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
 </body>
 </html>
