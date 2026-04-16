@@ -14,22 +14,22 @@
         <div class="row justify-content-center" >
             <div class="col-4" >
                 <h2>Register</h2>
-                <form>
+                <form action="add_user" method="POST">
                     <div class="mb-3">
                         <label for="fname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="fname" placeholder="Enter first name">
+                        <input name="fname" type="text" class="form-control" id="fname" placeholder="Enter first name">
                     </div>
                     <div class="mb-3">
                         <label for="lname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lname" placeholder="Enter last name">
+                        <input name="lname" type="text" class="form-control" id="lname" placeholder="Enter last name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password">
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
                     </div>
                     <div class="form-check mb-3">
                         <label for="loginAuto" class="form-label">Log in on account creation</label>
