@@ -1,135 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UC-015 Moderate Reviews</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/UC-015.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UC-015 Moderate Reviews</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/UC-015.css">
 </head>
 <body>
-    <div class="logo">
-        <a href="/" class="title">Grocery Store</a>
-
-        <div class="search">
-            <input type="text" class="form-control" id="search" placeholder="Search">
-            <!-- <button type="submit" class="btn btn-primary">Search</button> -->
-            <a href="#">
-                <img src="/images/search.png" alt="Search">
-            </a>
-        </div>
-
-        <div class="cart">
-            <a href="/cart/">
-                <img src="/images/cart.png" alt="Cart">
-                <% if (locals.cartCount > 0) { %>
-                    <span class="cart-badge"><%= locals.cartCount %></span>
-                <% } %>
-            </a>
-        </div>
-
-        <!-- if signed in show profile button, otherwise show login/register buttons -->
-        <div class="user">
-            <% if (locals.user) { %>
-                <a href="#" class="">
-                    <img src="/images/profile.png" alt="Profile" class="me-1">
-                </a>
-                <a href="#" class="btn">Log out</a>
-            <% } else { %>
-                <a href="/users/login" class="btn">Log in</a>
-                <a href="/users/register" class="btn">Register</a>
-            <% } %>
-        </div>
-    </div> 
-
-    <div class="mainContainer">
-        <aside class="filtersContainer">
-            <h2>Moderate Reviews</h2>
-            <hr>
-
-            <h3>Filters</h3>
-            <p class="sectionLabel">Review Status</p>
-
-            <div>
-                <input type="checkbox" id="flagged">
-                <label for="flagged">Flagged</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="recent">
-                <label for="recent">Recent</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="reported">
-                <label for="reported">Reported</label>
-            </div>
-
-            <hr>
-
-            <h3>Items</h3>
-            <div>
-                <input type="checkbox" id="apples">
-                <label for="apples">Organic Apples</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="milk">
-                <label for="milk">Milk 2%</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="bread">
-                <label for="bread">Whole Wheat Bread</label>
-            </div>
-        </aside>
-
-        <main class="itemsContainer">
-            <h2>Review Moderation</h2>
-            <p class="itemMeta">
-                Admin can review customer feedback and remove inappropriate reviews.
-            </p>
-
-            <div class="reviewCard">
-                <div class="reviewTop">
-                    <div>
-                        <h3>Organic Apples</h3>
-                        <p class="itemMeta">
-                            <span class="statusTag">Flagged</span>
-                            <span class="statusTag">Review ID: R101</span>
-                        </p>
-                        <p class="itemMeta"><strong>User:</strong> Alice Johnson</p>
-                        <p class="reviewText">"The apples were fresh, but the seller is rude and useless."</p>
-                    </div>
-
-                    <div class="reviewActions">
-                        <a class="btn btnView" href="review-details.html">View</a>
-                        <a class="btn btnDelete" href="delete-review.html">Delete</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reviewCard">
-                <div class="reviewTop">
-                    <div>
-                        <h3>Milk 2%</h3>
-                        <p class="itemMeta">
-                            <span class="statusTag">Recent</span>
-                            <span class="statusTag">Review ID: R102</span>
-                        </p>
-                        <p class="itemMeta"><strong>User:</strong> Michael Lee</p>
-                        <p class="reviewText">"Good product, arrived on time."</p>
-                    </div>
-
-                    <div class="reviewActions">
-                        <a class="btn btnView" href="review-details.html">View</a>
-                        <a class="btn btnDelete" href="delete-review.html">Delete</a>
-                    </div>
-                </div>
-            </div>
-
-           
-        </main>
+  <div class="logo">
+    <a href="/home">Grocery Store</a>
+    <div class="searchBar">
+      <input type="text" placeholder="Search reviews">
+      <button type="button">Search</button>
     </div>
+  </div>
+
+  <div class="mainContainer">
+    <aside class="filtersContainer">
+      <h2>Moderate Reviews</h2>
+      <hr>
+      <p class="sectionLabel">Admin can remove reviews.</p>
+    </aside>
+
+    <main class="itemsContainer">
+      <h2>Review Moderation</h2>
+
+      <% if (reviews.length === 0) { %>
+        <p>No reviews found.</p>
+      <% } %>
+
+      <% reviews.forEach(review => { %>
+        <div class="reviewCard">
+          <div class="reviewTop">
+            <div>
+              <h3><%= review.productName %></h3>
+              <p class="itemMeta">
+                <span class="statusTag"><%= review.flagged ? 'Flagged' : 'Recent' %></span>
+                <span class="statusTag">Review ID: R<%= review.id %></span>
+              </p>
+              <p class="itemMeta"><strong>User:</strong> <%= review.userName %></p>
+              <p class="reviewText">"<%= review.body %>"</p>
+            </div>
+
+            <div class="reviewActions">
+              <form action="/admin/reviews/<%= review.id %>/delete" method="POST">
+                <button class="btn btnDelete" type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </main>
+  </div>
 </body>
 </html>

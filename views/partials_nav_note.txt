@@ -1,0 +1,30 @@
+<div class="logo">
+  <a href="/home">Grocery Store</a>
+
+  <form action="/search" method="GET" class="d-flex" style="gap:8px; flex:1; margin:0 20px;">
+    <input type="text" class="form-control" name="q" placeholder="Search">
+    <button type="submit" class="btn btn-light">Search</button>
+  </form>
+
+  <div style="display:flex; gap:12px; align-items:center;">
+    <a href="/cart">Cart</a>
+    <a href="/order-history">Orders</a>
+    <a href="/profile">Profile</a>
+
+    <% if (currentUser && currentUser.role === 'seller') { %>
+      <a href="/seller/add-item">Add Item</a>
+      <a href="/seller/products">My Listings</a>
+      <a href="/seller/orders">Seller Orders</a>
+    <% } %>
+
+    <% if (currentUser && currentUser.role === 'admin') { %>
+      <a href="/admin/users">Manage Users</a>
+      <a href="/admin/analytics">Analytics</a>
+      <a href="/admin/reviews">Reviews</a>
+    <% } %>
+
+    <form action="/logout" method="POST" style="display:inline;">
+      <button type="submit" class="btn btn-sm btn-light">Logout</button>
+    </form>
+  </div>
+</div>

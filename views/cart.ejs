@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">  
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/UC05 cart.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/UC05 cart.css">
 </head>
 <body>
-    <%- include('partials/header') %>
-
-    <div class="cartContainer">
-
-        <div class="cartProducts">
-
-            <div class="productContainer">
-                <div class="productImage">
-                    <img src="/resources/Carrot.png">
-                </div>
-                <div class="productDesc">
-                    <h1>Carrots</h1>
-                    <h2>$10.00</h2>
-                    <p>Fresh carrots</p>
-                </div>
-            </div>
-
-            <div class="productContainer">
-                <div class="productImage">
-                    <img src="/resources/Carrot.png">
-                </div>
-                <div class="productDesc">
-                    <h1>Carrots</h1>
-                    <h2>$10.00</h2>
-                    <p>Fresh carrots</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="cartSummary">
-            <h2>Subtotal</h2>
-            <p>$20</p>
-            <a href="/cart/checkout">
-            <button type="submit" class="btn btn-primary">Continue to Checkout</button>
-            </a>
-        </div>
+  <div class="logo">
+    <a href="/home">Grocery Store</a>
+    <form action="/search" method="GET" class="d-flex" style="gap:8px; flex:1; margin:0 20px;">
+      <input type="text" class="form-control" name="q" placeholder="Search">
+      <button type="submit" class="btn btn-light">Search</button>
+    </form>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <a href="/home">Home</a>
+      <a href="/order-history">Orders</a>
     </div>
-    
+  </div>
 
+  <div class="cartContainer">
+    <div class="cartProducts">
+      <% if (cartItems.length === 0) { %>
+        <p>Your cart is empty.</p>
+      <% } %>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+      <% cartItems.forEach(item => { %>
+        <div class="productContainer">
+          <div class="productImage">
+            <img src="<%= item.image %>" alt="<%= item.name %>">
+          </div>
+          <div class="productDesc">
+            <h1><%= item.name %></h1>
+            <h2>$<%= item.price.toFixed(2) %></h2>
+            <p><%= item.desc %></p>
+            <p>Quantity: <%= item.quantity %></p>
+            <p>Line total: $<%= item.lineTotal.toFixed(2) %></p>
+
+            <form action="/cart/remove" method="POST">
+              <input type="hidden" name="productId" value="<%= item.productId %>">
+              <button type="submit" class="btn btn-danger">Remove</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="cartSummary">
+      <h2>Subtotal</h2>
+      <p>$<%= totals.subtotal.toFixed(2) %></p>
+      <p>Tax: $<%= totals.tax.toFixed(2) %></p>
+      <p><strong>Total: $<%= totals.total.toFixed(2) %></strong></p>
+
+      <% if (cartItems.length > 0) { %>
+        <a href="/checkout" class="btn btn-primary">Continue to Checkout</a>
+      <% } %>
+    </div>
+  </div>
 </body>
 </html>
