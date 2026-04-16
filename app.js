@@ -1,41 +1,66 @@
 var createError = require('http-errors');
 var express = require('express');
-const mongoose = require('mongoose');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var sqlite = require('sqlite3').verbose();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cartRouter = require('./routes/cart');
 
 var app = express();
-var PORT = 3306;
+const db = new sqlite.Database('./storedb.sqlite');
+db.get("PRAGMA foreign_keys = ON");
 
-// Create a connection to the database
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://EccomerceProject:QRW0fL0cZxIMNjPp@ecommerce.nactujh.mongodb.net/?appName=ecommerce";
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+db.exec(`CREATE TABLE IF NOT EXISTS accounts (
+  actEmail TEXT PRIMARY KEY,
+  actPassword TEXT NOT NULL,
+  actFname TEXT NOT NULL,
+  actLname TEXT NOT NULL,
+  actType TEXT NOT NULL )`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS card (
+  cardNo TEXT NOT NULL,
+  cardName TEXT NOT NULL,
+  cardExp TEXT NOT NULL,
+  cardType TEXT NOT NULL,
+  cardOwner TEXT NOT NULL,
+  FOREIGN KEY(cardOwner) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS listings (
+  listNo INTEGER PRIMARY KEY,
+  listName TEXT NOT NULL,
+  listDesc TEXT NOT NULL,
+  listImage TEXT NOT NULL,
+  listPrice REAL NOT NULL,
+  listQuanity INTEGER NOT NULL,
+  listSeller TEXT NOT NULL,
+  FOREIGN KEY(listSeller) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS orders (
+  orderDate TEXT NOT NULL,
+  orderQuanity INTEGER NOT NULL,
+  orderList INTEGER NOT NULL,
+  orderAct TEXT,
+  FOREIGN KEY(orderList) REFERENCES listings(listNo) ON UPDATE CASCADE,
+  FOREIGN KEY(orderAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS cart (
+  cartQuanity INTEGER NOT NULL,
+  cartList INTEGER NOT NULL,
+  cartAct TEXT NOT NULL,
+  FOREIGN KEY(cartList) REFERENCES listings(listNo) ON UPDATE CASCADE,
+  FOREIGN KEY(cartAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS reviews (
+  revRating INTEGER NOT NULL,
+  revTitle TEXT,
+  revDesc TEXT,
+  revList INTEGER NOT NULL,
+  revAct TEXT NOT NULL,
+  FOREIGN KEY(revList) REFERENCES listings(listNo) ON UPDATE CASCADE,
+  FOREIGN KEY(revAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
