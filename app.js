@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 
 const app = express();
 
-var app = express();
 var PORT = 3306;
 
 // Create a connection to the database
@@ -720,11 +720,6 @@ app.use((req, res) => {
     message: 'Page not found',
     error: { status: 404, stack: '' }
   });
-});
-
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
