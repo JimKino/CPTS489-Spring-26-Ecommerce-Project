@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var sqlite = require('sqlite3').verbose();
+var { DatabaseSync } = require('node:sqlite');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,8 +12,7 @@ var searchRouter = require('./routes/search');
 var productPageRouter = require('./routes/productPage');
 
 var app = express();
-const db = new sqlite.Database('./storedb.sqlite');
-db.get("PRAGMA foreign_keys = ON");
+const db = new DatabaseSync('./storedb.sqlite');
 
 db.exec(`CREATE TABLE IF NOT EXISTS accounts (
   actEmail TEXT PRIMARY KEY,
@@ -64,6 +63,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS reviews (
   FOREIGN KEY(revList) REFERENCES listings(listNo) ON UPDATE CASCADE,
   FOREIGN KEY(revAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
+db.close();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
