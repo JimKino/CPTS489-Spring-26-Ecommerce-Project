@@ -7,6 +7,13 @@ router.get('/', function(req, res, next) {
   res.render('home');
 });
 
+router.post('/homePopulate', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  var rows = db.prepare(`SELECT * FROM listings`).all();
+  db.close();
+  res.send(rows);
+});
+
 router.get('/order_history', function(req, res, next) {
   res.render('order_history', { title: 'Express' });
 });
