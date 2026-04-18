@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var { DatabaseSync } = require('node:sqlite');
 
 // GET search
 router.get('/', function(req, res) {
