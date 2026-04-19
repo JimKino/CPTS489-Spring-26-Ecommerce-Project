@@ -79,3 +79,24 @@ h1{
     border: 0.5px solid #e0e0e0;
     margin-top: 12px;
 }
+
+.revTitle {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.review h2 {
+    margin-bottom: 0px;
+    font-size: 25px;
+}
+
+.error {
+    display: none;
+}
+
+.error.visible {
+    display: flex;
+    color: red;
+    font-size: 15px;
+}
