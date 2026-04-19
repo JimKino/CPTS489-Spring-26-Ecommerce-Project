@@ -14,14 +14,14 @@
         <div class="row justify-content-center" >
             <div class="col-4" >
                 <h2>Login</h2>
-                <form>
+                <form action="login_user" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password">
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>

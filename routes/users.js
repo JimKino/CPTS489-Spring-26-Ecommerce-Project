@@ -17,6 +17,7 @@ router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
+//Registration
 router.post('/add_user', function(req, res, next) {
   var fname = req.body.fname;
   var lname = req.body.lname;
@@ -34,6 +35,38 @@ router.post('/add_user', function(req, res, next) {
 
   db.close();
   res.redirect('/users/login')
+})
+
+//Log in
+router.post('/login_user', function(req, res, next) {
+  var email = req.body.email;
+  var password = req.body.password;
+
+  //open and close the database in each post call, dont leave connections open
+  const db = new DatabaseSync('./storedb.sqlite');
+
+  //get registration information
+  const user = db.prepare('SELECT * FROM accounts WHERE actEmail = ? AND actPassword = ?').get(email, password);
+  db.close();
+  
+  // Check
+  if (user) { //success, login
+    res.cookie('user', {
+      email: user.actEmail,
+      firstName: user.actFname,
+      lastName: user.actLname,
+      type: user.actType
+    });
+    res.redirect('/');
+  } else { //failed
+    res.render('/users/login');
+  }
+})
+
+//Log out
+router.post('/logout_user', function(req, res, next) {
+  res.clearCookie('user');
+  res.redirect('/')
 })
 
 module.exports = router;

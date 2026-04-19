@@ -14,15 +14,24 @@
     <div class="mainContainer">
         <div class="productContainer">
             <div class="productImage">
-                <img src="/images/Carrot.png">
+                <img src="<%= product.listImage %>" alt="<%= product.listName %>">
             </div>
             <div class="productDesc">
-                <h1>Carrots</h1>
-                <p>Fresh carrots</p>
+                <h1><%= product.listName %></h1>
+                <p><%= product.listDesc %></p>
             </div>
             <div class="productBuy">
-                <h2>$10.00</h2>
-                <button class="addBtn">Add to cart</button>
+                <h2>$<%= product.listPrice %></h2>
+
+                <% if (product.listQuantity> 0) { %>
+                    <p>In Stock: <%= product.listQuantity %></p>
+                    <form action="/cart/add" method="POST">
+                        <input type="hidden" name="productId" value="<%= product.listNo %>">
+                        <button type="submit" class="addBtn">Add to Cart</button>
+                    </form>
+                <% } else { %>
+                    <button class="btn btn-secondary" disabled>Out of Stock</button>
+                <% } %>
             </div>
         </div>
 
