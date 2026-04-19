@@ -27,8 +27,4 @@ router.get('/add_item', function(req, res, next) {
   res.render('add_item', { title: 'Express' });
 });
 
-router.get('/update_profile', function(req, res, next) {
-  res.render('update_profile', { title: 'Express' });
-});
-
 module.exports = router;
