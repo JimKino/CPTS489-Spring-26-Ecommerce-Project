@@ -17,7 +17,10 @@ fetch("/homePopulate", { method: "POST", headers: { "Content-Type": "application
             <h1>${data[i].listName}</h1>
             <h2>$${data[i].listPrice}</h2>
             <p>${data[i].listDesc}</p>
-        </div>`;
+        </div>
+        <a href="/productPage?id=${data[i].listNo}">
+        <button type="submit" class="btn btn-primary">Item Page</button>
+        </a>`;
         main.append(item);
     }
 })
