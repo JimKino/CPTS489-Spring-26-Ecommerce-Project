@@ -1,17 +1,12 @@
-
 .productImage {
     display: inline-block;
     vertical-align: middle;
     flex: 4;
-    max-width: 35%;
+    width: 35%;
     margin: 20px;
     margin-left: 60px;
     padding: 20px;
     background-color: rgb(255, 255, 255);
-}
-
-.productImage input{
-    padding: 250px;
 }
 
 .productDesc {
@@ -22,6 +17,23 @@
     margin: 20px;
     padding: 20px;
     background-color: rgb(255, 255, 255);
+}
+
+#selectedImg {
+    margin-top: 20px;
+    border-style: solid;
+    border-color: lightgrey;
+    border-radius: 50px;
+    border-width: 1px;
+    width: 100%;
+    height: 480px;
+    align-content: center;
+}
+
+.imgFit {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 #item_name{
@@ -43,4 +55,14 @@ width: 10%;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 100%;
+}
+
+.error {
+    display: none;
+}
+
+.error.visible {
+    display: flex;
+    color: red;
+    font-size: 15px;
 }
