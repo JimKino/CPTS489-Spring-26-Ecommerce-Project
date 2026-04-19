@@ -4,7 +4,11 @@ var { DatabaseSync } = require('node:sqlite');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home');
+  const db = new DatabaseSync('./storedb.sqlite');
+  const listings = db.prepare('SELECT * FROM listings').all();
+  db.close()
+
+  res.render('home', {...res.locals, listings});
 });
 
 router.post('/homePopulate', function(req, res, next) {

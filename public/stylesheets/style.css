@@ -108,3 +108,48 @@ body {
     justify-content: center;
     line-height: 1;
 }
+
+/* User menu for logged-in users */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.user-menu .user-link {
+    color: rgb(240, 255, 255);
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+}
+
+.user-menu .user-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.user-menu .profile-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    filter: invert(1);
+}
+
+.user-menu .logout-btn {
+    background: transparent;
+    color: rgb(240, 255, 255);
+    border: 1.5px solid rgba(240, 255, 255, 0.6);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.user-menu .logout-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}

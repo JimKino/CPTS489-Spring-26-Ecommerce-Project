@@ -12,6 +12,7 @@ var searchRouter = require('./routes/search');
 var productPageRouter = require('./routes/productPage');
 
 var app = express();
+
 const db = new DatabaseSync('./storedb.sqlite');
 
 db.exec(`CREATE TABLE IF NOT EXISTS accounts (
@@ -35,7 +36,7 @@ db.exec(`CREATE TABLE IF NOT EXISTS listings (
   listDesc TEXT NOT NULL,
   listImage TEXT NOT NULL,
   listPrice REAL NOT NULL,
-  listQuanity INTEGER NOT NULL,
+  listQuantity INTEGER NOT NULL,
   listSeller TEXT NOT NULL,
   FOREIGN KEY(listSeller) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
@@ -63,6 +64,20 @@ db.exec(`CREATE TABLE IF NOT EXISTS reviews (
   FOREIGN KEY(revList) REFERENCES listings(listNo) ON UPDATE CASCADE,
   FOREIGN KEY(revAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
+// //TESTING DEFAULT VALUES, comment out if duplicate data entires error
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("seller@gmail.com", "password", "first", "last", "seller");
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("admin@gmail.com", "password", "first", "last", "admin");
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("cust@gmail.com", "password", "first", "last", "customer");
+// db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+// //   VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
+// db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//   VALUES (?, ?, ?, ?, ?, ?)`).run("Garlic", "1 Bulb of Garlic", "/images/garlic.jpg", 0.85, 20, "seller@gmail.com");
+// db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//   VALUES (?, ?, ?, ?, ?, ?)`).run("Milk", "1 glass of Milk", "/images/milk.jpg", 10.99, 0, "seller@gmail.com");
+
 db.close();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -73,6 +88,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// use cookies to keep track of user: currentUser
+app.use((req, res, next) => {
+  res.locals.currentUser = req.cookies.user || null;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
