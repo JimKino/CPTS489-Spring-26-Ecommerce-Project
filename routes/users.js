@@ -59,7 +59,7 @@ router.post('/login_user', function(req, res, next) {
     });
     res.redirect('/');
   } else { //failed
-    res.render('/users/login');
+    res.render('index');
   }
 })
 

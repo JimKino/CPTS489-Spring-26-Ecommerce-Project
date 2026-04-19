@@ -64,11 +64,15 @@ db.exec(`CREATE TABLE IF NOT EXISTS reviews (
   FOREIGN KEY(revList) REFERENCES listings(listNo) ON UPDATE CASCADE,
   FOREIGN KEY(revAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
-//TESTING DEFAULT VALUES, comment out if duplicate data entires error
-db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
-  VALUES (?, ?, ?, ?, ?)`).run("test@gmail.com", "password", "first", "last", "seller");
-db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-  VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "test@gmail.com");
+// //TESTING DEFAULT VALUES, comment out if duplicate data entires error
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("seller@gmail.com", "password", "first", "last", "seller");
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("admin@gmail.com", "password", "first", "last", "admin");
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("cust@gmail.com", "password", "first", "last", "customer");
+// db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//   VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
 
 db.close();
 // view engine setup
