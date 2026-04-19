@@ -26,18 +26,17 @@
         <% if (currentUser) { %>
             <div class="user-menu">
                 <% if (currentUser.type === 'seller') { %>
-                    <a href="/seller/add-item" class="user-link">Add Item</a>
+                    <a href="/add_item" class="user-link">Add Item</a>
                     <a href="/seller/products" class="user-link">My Listings</a>
                     <a href="/seller/orders" class="user-link">Seller Orders</a>
                 <% } else if (currentUser.type === 'admin') { %>
                     <a href="/admin/users" class="user-link">Manage Users</a>
                     <a href="/admin/analytics" class="user-link">Analytics</a>
                     <a href="/admin/reviews" class="user-link">Reviews</a>
-                <% } else if (currentUser.type === 'customer') { %>
-                    <a href="#" class="user-link">
+                <% } %>
+                    <a href="/users/profile" class="user-link">
                         <img src="/images/profile.png" alt="Profile" class="me-1">
                     </a>
-                <% } %>
 
                 <form action="/users/logout_user" method="POST">
                         <button type="submit" class="logout-btn">Logout</button>

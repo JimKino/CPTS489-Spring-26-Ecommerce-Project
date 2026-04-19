@@ -17,6 +17,10 @@ router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
+router.get('/profile', function(req, res, next) {
+  res.render('update_profile', { title: 'Express' });
+});
+
 //Registration
 router.post('/add_user', function(req, res, next) {
   var fname = req.body.fname;
