@@ -72,7 +72,11 @@ db.exec(`CREATE TABLE IF NOT EXISTS reviews (
 // db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
 //   VALUES (?, ?, ?, ?, ?)`).run("cust@gmail.com", "password", "first", "last", "customer");
 // db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-//   VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
+// //   VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
+// db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//   VALUES (?, ?, ?, ?, ?, ?)`).run("Garlic", "1 Bulb of Garlic", "/images/garlic.jpg", 0.85, 20, "seller@gmail.com");
+// db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//   VALUES (?, ?, ?, ?, ?, ?)`).run("Milk", "1 glass of Milk", "/images/milk.jpg", 10.99, 0, "seller@gmail.com");
 
 db.close();
 // view engine setup
