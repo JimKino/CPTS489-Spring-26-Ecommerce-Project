@@ -14,16 +14,20 @@
 
     <div class="mainContainer">
         <div class="productContainer">
+        <form action="/createListing" method="POST">
             <div class="productImage">
-                <input type="image" class="form-control" src="/images/input_image.jpg" alt="Submit">
+                <h1>Product Image</h1>
+                <input name="item_image" type="file" accept="image/*" class="form-control">
             </div>
             <div class="productDesc">
                 <h1>Product Information</h1>
-                <input type="text" class="form-control" id="item_name" placeholder="Product Name">
-                <input type="text" class="form-control" id="item_price" placeholder="Product price ($00.00)">
-                <input type="text" class="form-control" id="item_desc" placeholder="Product Description">
+                <input name="item_name" type="text" class="form-control" id="item_name" placeholder="Product Name">
+                <input name="item_price" type="text" class="form-control" id="item_price" placeholder="Product price ($00.00)">
+                <input name="item_quantity" type="text" class="form-control" id="item_quantity" placeholder="Quantity">
+                <textarea id="item_desc" name="item_desc" class="form-control" rows="17" placeholder="Product Description"></textarea>
                 <button type="submit" class="btn btn-primary">Add Product</button>
             </div>
+        </form>
         </div>
     </div>
     

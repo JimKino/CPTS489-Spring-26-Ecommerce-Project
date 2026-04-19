@@ -1,11 +1,15 @@
 .productContainer {
     display: flex;
+    flex-direction: column;
 }
 
 .productImage {
+    display: inline-block;
+    vertical-align: middle;
     flex: 4;
-    max-width: 40%;
+    max-width: 35%;
     margin: 20px;
+    margin-left: 60px;
     padding: 20px;
     background-color: rgb(255, 255, 255);
 }
@@ -15,6 +19,9 @@
 }
 
 .productDesc {
+    display: inline-block;
+    vertical-align: middle;
+    width: 55%;
     flex: 4;
     margin: 20px;
     padding: 20px;
@@ -28,11 +35,16 @@
 
 #item_price{
     display: inline-block;
-    width: 29%;
+    width: 19%;
+}
+
+#item_quantity{
+display: inline-block;
+width: 10%;
 }
 
 #item_desc{
     margin-top: 20px;
     margin-bottom: 20px;
-    padding-bottom: 500px;
+    width: 100%;
 }
