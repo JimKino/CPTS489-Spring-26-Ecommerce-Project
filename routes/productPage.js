@@ -13,4 +13,11 @@ router.get('/:listNo', function(req, res) {
   res.render('productPage', { product: product });
 });
 
+router.post('/itemPopulate', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  var rows = db.prepare(`SELECT * FROM listings WHERE listNo=?`).get(req.body.id);
+  db.close();
+  res.send(rows);
+});
+
 module.exports = router;
