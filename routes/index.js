@@ -53,7 +53,7 @@ router.post('/createListing', function(req, res, next) {
 
   try{
   db.prepare(`INSERT INTO listings (listNo, listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-  VALUES (?, ?, ?, ?, ?, ?, ?)`).run(listNo, listName, listDesc, listImage, listPrice, listQuanity, listSeller);
+  VALUES (?, ?, ?, ?, ?, ?, ?)`).run(listNo, listName, listDesc, "/images/" + listImage, listPrice, listQuanity, listSeller);
   console.log("Added listing " + listName);
   }
   catch (e) {
