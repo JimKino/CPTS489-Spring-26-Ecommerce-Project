@@ -14,25 +14,24 @@
 
     <div class="mainContainer">
         <div class="productContainer">
-        <form action="/createListing" method="POST">
             <div class="productImage">
                 <h1>Product Image</h1>
-                <input name="item_image" type="file" accept="image/*" class="form-control">
+                <input id="item_image" type="file" accept="image/*" class="form-control">
             </div>
             <div class="productDesc">
                 <h1>Product Information</h1>
-                <input name="item_name" type="text" class="form-control" id="item_name" placeholder="Product Name">
-                <input name="item_price" type="text" class="form-control" id="item_price" placeholder="Product price ($00.00)">
-                <input name="item_quantity" type="text" class="form-control" id="item_quantity" placeholder="Quantity">
+                <input id="item_name" type="text" class="form-control" id="item_name" placeholder="Product Name">
+                <input id="item_price" type="text" class="form-control" id="item_price" placeholder="Product price ($00.00)">
+                <input id="item_quantity" type="text" class="form-control" id="item_quantity" placeholder="Quantity">
                 <textarea id="item_desc" name="item_desc" class="form-control" rows="17" placeholder="Product Description"></textarea>
-                <button type="submit" class="btn btn-primary">Add Product</button>
+                <button id="productsubmit" type="submit" class="btn btn-primary">Add Product</button>
             </div>
-        </form>
         </div>
     </div>
     
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="javascripts/add_item.js"></script>
 </body>
 </html>
