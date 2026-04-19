@@ -35,10 +35,12 @@
             </div>
         </div>
 
-        <div class="productReviews">
+        <div id="productReviews" class="productReviews">
             <div class="reviewsHeader">
                 <h2>Reviews</h2>
-                <button class="btn btn-primary" id="btnReview" type="button">Leave a review</button>
+                <% if (currentUser) { %>
+                    <button class="btn btn-primary" id="btnReview" type="button">Leave a review</button>
+                <% } %>
             </div>
             <div class="reviewForm" id="input_review">
                 <p>Your review</p>
@@ -51,6 +53,7 @@
                 </div>
                 <input type="text" class="form-control" id="review_header" placeholder="Review title">
                 <textarea class="form-control" id="review_body" placeholder="Write your review here..."></textarea>
+                <p id="error" class="error">Please fill all fields and leave a rating</p>
                 <button class="addBtn" id="review_submit" type="submit">Submit</button>
             </div>
         </div>
