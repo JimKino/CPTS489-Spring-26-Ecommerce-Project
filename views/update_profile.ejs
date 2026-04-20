@@ -12,68 +12,34 @@
   <body>
     <%- include('partials/header') %>
 
-    <div class="itemsContainer" id="profile_info">
-      <h1>John Doe</h1>
-      <button type="submit" class="btn btn-primary">Change Username</button>
-      <button type="submit" class="btn btn-primary">Reset Password</button>
+    <div class="mainContainer">
+      <div class="itemsContainer" id="profile_info">
+        <div id="name"></div>
+        <a href="/order_history">
+        <button type="submit" class="btn btn-primary">Order History</button>
+        </a>
+        <button id="changePass" type="submit" class="btn btn-primary">Change Password</button>
+      </div>
+      <div class="inputPopUp" id="passReset">
+        <input id="newPass" type="text" class="form-control" placeholder="Enter New password">
+        <button id="updatePass" type="submit" class="btn btn-primary">Update Password</button>
+        <p id="error1" class="error">Please fill all fields</p>
+      </div>
+
+      <div class="itemsContainer" id="payment_info">
+        <h2>Saved Cards</h2>
+        <button type="submit" class="btn btn-primary" id="add_card">Add Card</button>
+        <div class="inputPopUp" id="inputCard">
+          <input id="cardName" type="text" class="form-control cardField" placeholder="Card Name">
+          <input id="cardType" type="text" class="form-control cardField" placeholder="Card Type">
+          <input id="cardNo" type="text" class="form-control cardField" placeholder="Card Number">
+          <input id="cardExp" type="text" class="form-control cardField" placeholder="Card Experation Date">
+          <button id="cardSubmit" type="submit" class="btn btn-primary">Add Card</button>
+          <p id="error2" class="error">Please fill all fields</p>
+        </div>
+      </div>
     </div>
 
-    <div class="itemsContainer" id="payment_info">
-      <h1>Payment Information</h1>
-      <button type="submit" class="btn btn-primary">Change Shipping Address</button>
-      <h2>Saved Cards</h2>
-      <button type="submit" class="btn btn-primary" id="add_card">Add Card</button>
-      <div class="saved_card">
-        <table>
-          <tr>
-            <th>Card name</th>
-            <td>Main Credit</td>
-          <tr>
-            <th>Card Type</th>
-            <td>Visa<td>
-          </tr>
-          <tr>
-            <th>Card Number</th>
-            <td>**** **** **** *111</td>
-          </tr>
-        </table>
-        <button type="submit" class="btn btn-primary">Edit</button>
-        <button type="submit" class="btn btn-primary">Delete</button>
-      </div>
-      <div class="saved_card">
-        <table>
-          <tr>
-            <th>Card name</th>
-            <td>Main Credit</td>
-          <tr>
-            <th>Card Type</th>
-            <td>Visa<td>
-          </tr>
-          <tr>
-            <th>Card Number</th>
-            <td>**** **** **** *222</td>
-          </tr>
-        </table>
-        <button type="submit" class="btn btn-primary">Edit</button>
-        <button type="submit" class="btn btn-primary">Delete</button>
-      </div>
-      <div class="saved_card">
-        <table>
-          <tr>
-            <th>Card name</th>
-            <td>Main Credit</td>
-          <tr>
-            <th>Card Type</th>
-            <td>Visa<td>
-          </tr>
-          <tr>
-            <th>Card Number</th>
-            <td>**** **** **** *333</td>
-          </tr>
-        </table>
-        <button type="submit" class="btn btn-primary">Edit</button>
-        <button type="submit" class="btn btn-primary">Delete</button>
-      </div>
-    </div>
+    <script src="/javascripts/profile.js"></script>
   </body>
 </html>
