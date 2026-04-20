@@ -55,6 +55,24 @@ body {
     min-width: 80px;
 }
 
+.logo .search form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.logo .search button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .logo .logo .cart {
     display: flex;
     align-items: center;

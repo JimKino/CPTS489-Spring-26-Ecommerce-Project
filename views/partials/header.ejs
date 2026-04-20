@@ -4,11 +4,17 @@
     <a href="/" class="title">Grocery Store</a>
 
     <div class="search">
-        <input type="text" class="form-control" id="search" placeholder="Search">
-        <!-- <button type="submit" class="btn btn-primary">Search</button> -->
-        <a href="/search/">
-            <img src="/images/search.png" alt="Search">
-        </a>
+        <form action="/search" method="GET" class="search">
+            <input type="text" name="q" class="form-control" placeholder="Search" value="<%= typeof searchTerm !== 'undefined' ? searchTerm : '' %>">
+            <input type="hidden" name="minPrice" value="<%= typeof minPrice !== 'undefined' ? minPrice : '' %>">
+            <input type="hidden" name="maxPrice" value="<%= typeof maxPrice !== 'undefined' ? maxPrice : '' %>">
+            <% if (typeof inStock !== 'undefined' && inStock) { %>
+                <input type="hidden" name="inStock" value="true">
+            <% } %>
+            <button type="submit">
+                <img src="/images/search.png" alt="Search">
+            </button>
+        </form>
     </div>
 
     <div class="cart">
@@ -39,7 +45,7 @@
                     </a>
 
                 <form action="/users/logout_user" method="POST">
-                        <button type="submit" class="logout-btn">Logout</button>
+                    <button type="submit" class="logout-btn">Logout</button>
                 </form>
             </div>
         <% } else { %>
