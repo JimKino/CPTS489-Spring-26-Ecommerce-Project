@@ -4,7 +4,6 @@ var { DatabaseSync } = require('node:sqlite');
 
 // GET search
 router.get('/', function(req, res) {
-   console.log("test")
    const searchTerm = req.query.q || '';
    const minPrice = req.query.minPrice ? parseFloat(req.query.minPrice) : null;
    const maxPrice = req.query.maxPrice ? parseFloat(req.query.maxPrice) : null;

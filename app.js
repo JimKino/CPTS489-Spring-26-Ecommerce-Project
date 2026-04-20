@@ -42,14 +42,14 @@ db.exec(`CREATE TABLE IF NOT EXISTS listings (
 
 db.exec(`CREATE TABLE IF NOT EXISTS orders (
   orderDate TEXT NOT NULL,
-  orderQuanity INTEGER NOT NULL,
+  orderQuantity INTEGER NOT NULL,
   orderList INTEGER NOT NULL,
   orderAct TEXT,
   FOREIGN KEY(orderList) REFERENCES listings(listNo) ON UPDATE CASCADE,
   FOREIGN KEY(orderAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
 db.exec(`CREATE TABLE IF NOT EXISTS cart (
-  cartQuanity INTEGER NOT NULL,
+  cartQuantity INTEGER NOT NULL,
   cartList INTEGER NOT NULL,
   cartAct TEXT NOT NULL,
   FOREIGN KEY(cartList) REFERENCES listings(listNo) ON UPDATE CASCADE,
