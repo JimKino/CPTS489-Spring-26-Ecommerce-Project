@@ -41,6 +41,42 @@ router.post('/add_user', function(req, res, next) {
   res.redirect('/users/login')
 })
 
+router.post('/get_user', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  const user = db.prepare('SELECT * FROM accounts WHERE actEmail = ?').get(req.body.email);
+  db.close();
+  res.send(user);
+})
+
+router.post('/get_cards', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  const rows = db.prepare('SELECT * FROM card WHERE cardOwner = ?').all(req.body.email);
+  db.close();
+  res.send(rows);
+})
+
+router.post('/update_pass', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  const rows = db.prepare('UPDATE accounts SET actPassword = ? WHERE actEmail = ?').run(req.body.newPass, req.body.email);
+  db.close();
+  res.redirect('/users/profile');
+})
+
+router.post('/add_card', function(req, res, next){
+  const db = new DatabaseSync('./storedb.sqlite');
+  db.prepare(`INSERT INTO card (cardNo, cardName, cardExp, cardType, cardOwner)
+    VALUES (?, ?, ?, ?, ?)`).run(req.body.cardNo, req.body.cardName, req.body.cardExp, req.body.cardType, req.body.email);
+  db.close();
+  res.redirect('/users/profile');
+})
+
+router.post('/delete_card/:cardName/:email', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  db.prepare(`DELETE FROM card WHERE cardName = ? AND cardOwner = ?`).run(req.params.cardName, req.params.email);
+  db.close();
+  res.redirect('/users/profile');
+});
+
 //Log in
 router.post('/login_user', function(req, res, next) {
   var email = req.body.email;
