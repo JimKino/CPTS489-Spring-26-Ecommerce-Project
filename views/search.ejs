@@ -12,21 +12,27 @@
 
     <div class="searchContainer">
         <div class="filtersContainer">
-            <h3>Filters</h3>
-            <div>
-                <input type="checkbox" id="filter">
-                <label for="filter">1</label>
-            </div>
+            <form action="/search" method="GET">
+                <input type="hidden" name="q" value="<%= searchTerm || '' %>">
 
-            <div>
-                <input type="checkbox" id="filter">
-                <label for="filter">2</label>
-            </div>
+                <h3>Filters</h3>
+                <div>
+                    <label>Min Price:</label>
+                    <input type="number" name="minPrice" placeholder="0.00" step="0.01" value="<%= minPrice || '' %>">
+                </div>
+                
+                <div>
+                    <label>Max Price:</label>
+                    <input type="number" name="maxPrice" placeholder="10.99" step="0.01" value="<%= maxPrice || '' %>">
+                </div>
+                
+                <div>
+                    <label>
+                    <input type="checkbox" name="inStock" value="true" <%= inStock ? 'checked' : '' %>> In Stock Only</label>
+                </div>
 
-            <div>
-                <input type="checkbox" id="filter">
-                <label for="filter">3</label>
-            </div>
+                <button type="submit" class="addBtn">Apply Filters</button>
+            </form>
         </div>
         
         <%- include('partials/productList') %>

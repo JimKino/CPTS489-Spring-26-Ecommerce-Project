@@ -97,6 +97,15 @@ router.post('/login_user', function(req, res, next) {
       lastName: user.actLname,
       type: user.actType
     });
+
+    if (user && user.email) {
+      const db = new DatabaseSync('./storedb.sqlite');
+      res.locals.userCart = db.prepare('SELECT cartList, cartQuanity FROM cart WHERE cartAct = ?').all(user.email);
+      db.close();
+    } else {
+      res.locals.userCart = [];
+    }
+
     res.redirect('/');
   } else { //failed
     res.render('index');
