@@ -48,7 +48,7 @@ router.post('/createListing', function(req, res, next) {
   var listDesc = req.body.desc;
   var listImage = req.body.image;
   var listPrice = req.body.price;
-  var listQuanity = req.body.quantity;
+  var listQuantity = req.body.quantity;
   var listSeller = req.body.email;
 
   const db = new DatabaseSync('./storedb.sqlite');
@@ -57,12 +57,13 @@ router.post('/createListing', function(req, res, next) {
 
   try{
   db.prepare(`INSERT INTO listings (listNo, listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-  VALUES (?, ?, ?, ?, ?, ?, ?)`).run(listNo, listName, listDesc, "/images/" + listImage, listPrice, listQuanity, listSeller);
+  VALUES (?, ?, ?, ?, ?, ?, ?)`).run(listNo, listName, listDesc, "/images/" + listImage, listPrice, listQuantity, listSeller);
   console.log("Added listing " + listName);
   }
   catch (e) {
     console.log(e);
   }
+  
   db.close();
   res.redirect('/');
 });

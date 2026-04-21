@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UC-011 Edit/Delete Product</title>
+    <title>Edit/Delete Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">  
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/UC-011.css">
 </head>
@@ -14,68 +15,37 @@
         <aside class="filtersContainer">
             <h2>Edit/Delete Product</h2>
             <hr>
-
-            <h3>Filters</h3>
-            <p class="sectionLabel">Status</p>
-
-            <div>
-                <input type="checkbox" id="active">
-                <label for="active">Active</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="draft">
-                <label for="draft">Draft</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="sold">
-                <label for="sold">Sold</label>
-            </div>
+            <h3>My Listings</h3>
+            <p class="sectionLabel">Seller can edit or delete their own products.</p>
         </aside>
-
         <main class="itemsContainer">
             <h2>My Listings</h2>
-            <p class="itemMeta">
-                Select a product and choose <strong>Edit</strong> or <strong>Delete</strong>.
-            </p>
-
-            <div class="productCard">
-                <div class="productTop">
-                    <div>
-                        <h3>Organic Apples (1 lb)</h3>
-                        <p class="itemMeta">
-                            <span class="statusTag">Active</span>
-                            <span class="statusTag">$3.99</span>
-                        </p>
-                        <p class="itemMeta">Fresh organic apples. Delivery within 2–3 days.</p>
-                    </div>
-
-                    <div class="productActions">
-                        <a class="btn btnEdit" href="edit-product.html">Edit</a>
-                        <a class="btn btnDelete" href="delete-product.html">Delete</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="productCard">
-                <div class="productTop">
-                    <div>
-                        <h3>Milk 2% (1 gallon)</h3>
-                        <p class="itemMeta">
-                            <span class="statusTag">Draft</span>
-                            <span class="statusTag">$4.49</span>
-                        </p>
-                        <p class="itemMeta">Draft listing not visible to buyers yet.</p>
-                    </div>
-
-                    <div class="productActions">
-                        <a class="btn btnEdit" href="edit-product.html">Edit</a>
-                        <a class="btn btnDelete" href="delete-product.html">Delete</a>
+            <% if (products.length === 0) { %>
+                <p>No listings yet.</p>
+            <% } %>
+            <% products.forEach(product => { %>
+                <div class="productCard">
+                    <div class="productTop">
+                        <div>
+                            <h3><%= product.listName %></h3>
+                            <p class="itemMeta">
+                                <span class="statusTag">$<%= product.listPrice.toFixed(2) %></span>
+                            </p>
+                            <p class="itemMeta"><%= product.listDesc %></p>
+                            <p class="itemMeta">Stock: <%= product.listQuantity %></p>
+                        </div>
+                        <div class="productActions">
+                            <a class="btn btnEdit" href="/productPage/<%= product.listNo %>">View</a>
+                            <a class="btn btnEdit" href="/seller/products/<%= product.listNo %>/edit">Edit</a>
+                            <form action="/seller/products/<%= product.listNo %>/delete" method="POST">
+                                <button class="btn btnDelete" type="submit">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <% }) %>
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
     SELECT * FROM cart JOIN listings ON cart.cartList = listings.listNo WHERE cart.cartAct = ?`).all(userEmail);
   
   // calculate subtotal
-  const subtotal = cartData.reduce((total, item) => {return total + (item.listPrice * item.cartQuanity);}, 0);
+  const subtotal = cartData.reduce((total, item) => {return total + (item.listPrice * item.cartQuantity);}, 0);
 
   db.close();
 
@@ -29,7 +29,7 @@ router.get('/checkout', function(req, res, next) {
 
   const cards = db.prepare(`SELECT * FROM card WHERE cardOwner = ?`).all(userEmail);
   // calculate subtotal
-  const subtotal = cartData.reduce((total, item) => {return total + (item.listPrice * item.cartQuanity);}, 0);
+  const subtotal = cartData.reduce((total, item) => {return total + (item.listPrice * item.cartQuantity);}, 0);
 
   db.close();
 
@@ -49,10 +49,10 @@ router.post('/doCheckout', function(req, res) {
     for(let i = 0; i < cartData.length; i++)
     {
       const listing = db.prepare(`SELECT * FROM listings WHERE listNo = ?`).get(cartData[i].cartList);
-      var newQuant = listing.listQuantity - cartData[i].cartQuanity;
+      var newQuant = listing.listQuantity - cartData[i].cartQuantity;
       db.prepare('UPDATE listings SET listQuantity = ? WHERE listNo = ?').run(newQuant, cartData[i].cartList);
-      db.prepare('INSERT INTO orders (orderDate, orderQuanity, orderList, orderAct) VALUES (?, ?, ?, ?)')
-      .run(month + "-" + date.getDate() + "-" + date.getFullYear(), cartData[i].cartQuanity, cartData[i].cartList, userEmail);
+      db.prepare('INSERT INTO orders (orderDate, orderQuantity, orderList, orderAct) VALUES (?, ?, ?, ?)')
+      .run(month + "-" + date.getDate() + "-" + date.getFullYear(), cartData[i].cartQuantity, cartData[i].cartList, userEmail);
     }
 
     db.prepare('DELETE FROM cart WHERE cartAct = ?').run(userEmail);
@@ -73,7 +73,7 @@ router.post('/add', (req, res) => {
   }
 
   const stockInfo = db.prepare(`
-    SELECT l.listQuantity AS availableStock, IFNULL(c.cartQuanity, 0) AS currentInCart
+    SELECT l.listQuantity AS availableStock, IFNULL(c.cartQuantity, 0) AS currentInCart
     FROM listings l LEFT JOIN cart c ON l.listNo = c.cartList AND c.cartAct = ? WHERE l.listNo = ?
     `).get(userEmail, productId);
 
@@ -85,10 +85,10 @@ router.post('/add', (req, res) => {
     // add to cart
     if (stockInfo && stockInfo.currentInCart > 0) {
       //item already in cart, add one more  
-      db.prepare('UPDATE cart SET cartQuanity = cartQuanity + 1 WHERE cartList = ? AND cartAct = ?').run(productId, userEmail); 
+      db.prepare('UPDATE cart SET cartQuantity = cartQuantity + 1 WHERE cartList = ? AND cartAct = ?').run(productId, userEmail); 
     } else {
       //add one to cart
-      db.prepare('INSERT INTO cart (cartQuanity, cartList, cartAct) VALUES (?, ?, ?)').run(1, productId, userEmail);
+      db.prepare('INSERT INTO cart (cartQuantity, cartList, cartAct) VALUES (?, ?, ?)').run(1, productId, userEmail);
     }
 
   db.close();
@@ -110,7 +110,7 @@ router.post('/update', (req, res) => {
     const stock = db.prepare('SELECT listQuantity FROM listings WHERE listNo = ?').get(productId);
     
     if (stock && parseInt(quantity) <= stock.listQuantity) {
-      db.prepare('UPDATE cart SET cartQuanity = ? WHERE cartList = ? AND cartAct = ?').run(quantity, productId, userEmail);
+      db.prepare('UPDATE cart SET cartQuantity = ? WHERE cartList = ? AND cartAct = ?').run(quantity, productId, userEmail);
     }
 
     db.close();

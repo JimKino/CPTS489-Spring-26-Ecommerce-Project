@@ -3,169 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UC-014 View System Analytics</title>
+    <title>View System Analytics</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/UC-014.css">
 </head>
 <body>
-    <div class="logo">
-        <a href="/" class="title">Grocery Store</a>
-
-        <div class="search">
-            <input type="text" class="form-control" id="search" placeholder="Search">
-            <!-- <button type="submit" class="btn btn-primary">Search</button> -->
-            <a href="#">
-                <img src="/images/search.png" alt="Search">
-            </a>
-        </div>
-
-        <div class="cart">
-            <a href="/cart/">
-                <img src="/images/cart.png" alt="Cart">
-                <% if (locals.cartCount > 0) { %>
-                    <span class="cart-badge"><%= locals.cartCount %></span>
-                <% } %>
-            </a>
-        </div>
-
-        <!-- if signed in show profile button, otherwise show login/register buttons -->
-        <div class="user">
-            <% if (locals.user) { %>
-                <a href="#" class="">
-                    <img src="/images/profile.png" alt="Profile" class="me-1">
-                </a>
-                <a href="#" class="btn">Log out</a>
-            <% } else { %>
-                <a href="/users/login" class="btn">Log in</a>
-                <a href="/users/register" class="btn">Register</a>
-            <% } %>
-        </div>
-    </div> 
+    <%- include('partials/header') %>
 
     <div class="mainContainer">
         <aside class="filtersContainer">
             <h2>View Analytics</h2>
             <hr>
-
-            <h3>Filters</h3>
-            <p class="sectionLabel">Analytics Type</p>
-
-            <div>
-                <input type="checkbox" id="sales">
-                <label for="sales">Sales</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="products">
-                <label for="products">Products Added</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="revenue">
-                <label for="revenue">Revenue</label>
-            </div>
-
-            <hr>
-
-            <h3>Items</h3>
-            <div>
-                <input type="checkbox" id="apples">
-                <label for="apples">Organic Apples</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="milk">
-                <label for="milk">Milk 2%</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="bread">
-                <label for="bread">Whole Wheat Bread</label>
-            </div>
+            <p class="sectionLabel">System overview</p>
         </aside>
-
         <main class="itemsContainer">
             <h2>System Analytics</h2>
-            <p class="itemMeta">
-                Admin can view analytics for items added and sold across the system.
-            </p>
-
             <div class="analyticsCard">
                 <h3>Overview</h3>
-                <p class="itemMeta">
-                    <span class="statusTag">This Week</span>
-                    <span class="statusTag">All Items</span>
-                </p>
-
+                <p class="itemMeta"><span class="statusTag">Users: <%= stats.totalUsers %></span></p>
+                <p class="itemMeta"><span class="statusTag">Products: <%= stats.totalProducts %></span></p>
+                <p class="itemMeta"><span class="statusTag">Orders: <%= stats.totalOrders %></span></p>
+                <p class="itemMeta"><span class="statusTag">Revenue: $<%= stats.totalRevenue %></span></p>
+                
+                <h3 style="margin-top: 30px;">Orders by Seller</h3>
                 <div class="chartBox">
-                    <div class="barGroup">
-                        <p class="barLabel">Mon</p>
-                        <div class="bar bar1"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">Tue</p>
-                        <div class="bar bar2"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">Wed</p>
-                        <div class="bar bar3"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">Thu</p>
-                        <div class="bar bar4"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">Fri</p>
-                        <div class="bar bar5"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">Sat</p>
-                        <div class="bar bar6"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">Sun</p>
-                        <div class="bar bar7"></div>
-                    </div>
+                    <% if (topSellers.length === 0) { %>
+                        <p class="itemMeta">No order data yet</p>
+                    <% } else { %>
+                        <% topSellers.forEach(seller => { %>
+                        <div class="barGroup">
+                            <div class="bar" style="height: <%= (seller.orderCount / maxOrders) * 150 %>px;"></div>
+                            <p class="barLabel" title="<%= seller.sellerName %>"><%= seller.sellerName.split(' ')[0] %></p>
+                            <p class="barCount"><%= seller.orderCount %></p>
+                        </div>
+                        <% }) %>
+                    <% } %>
                 </div>
             </div>
-
-            <div class="analyticsCard">
-                <h3>Item-Specific Analytics</h3>
-                <p class="itemMeta">
-                    Example: Organic Apples sales performance
-                </p>
-
-                <div class="chartBox">
-                    <div class="barGroup">
-                        <p class="barLabel">W1</p>
-                        <div class="bar itemBar1"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">W2</p>
-                        <div class="bar itemBar2"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">W3</p>
-                        <div class="bar itemBar3"></div>
-                    </div>
-
-                    <div class="barGroup">
-                        <p class="barLabel">W4</p>
-                        <div class="bar itemBar4"></div>
-                    </div>
-                </div>
-            </div>
-
-            
         </main>
-    </div>
+    </div>    
 </body>
 </html>

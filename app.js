@@ -10,6 +10,8 @@ var usersRouter = require('./routes/users');
 var cartRouter = require('./routes/cart');
 var searchRouter = require('./routes/search');
 var productPageRouter = require('./routes/productPage');
+var sellerRouter = require('./routes/seller');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -68,11 +70,13 @@ db.exec(`CREATE TABLE IF NOT EXISTS reviews (
 // db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
 //   VALUES (?, ?, ?, ?, ?)`).run("seller@gmail.com", "password", "first", "last", "seller");
 // db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//   VALUES (?, ?, ?, ?, ?)`).run("seller2@gmail.com", "password", "2first", "2last", "seller");
+// db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
 //   VALUES (?, ?, ?, ?, ?)`).run("admin@gmail.com", "password", "first", "last", "admin");
 // db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
 //   VALUES (?, ?, ?, ?, ?)`).run("cust@gmail.com", "password", "first", "last", "customer");
 // db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-// //   VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
+//    VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
 // db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
 //   VALUES (?, ?, ?, ?, ?, ?)`).run("Garlic", "1 Bulb of Garlic", "/images/garlic.jpg", 0.85, 20, "seller@gmail.com");
 // db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
@@ -100,6 +104,8 @@ app.use('/users', usersRouter);
 app.use('/cart', cartRouter);
 app.use('/search', searchRouter);
 app.use('/productPage', productPageRouter);
+app.use('/seller', sellerRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
