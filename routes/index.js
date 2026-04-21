@@ -22,10 +22,6 @@ router.get('/order_history', function(req, res, next) {
   res.render('order_history', { title: 'Express' });
 });
 
-router.get('/checkout', function(req, res, next) {
-  res.render('checkout', { title: 'Express' });
-});
-
 router.get('/productPage', function(req, res, next) {
   res.render('productPage.ejs', { title: 'Express' });
 });
