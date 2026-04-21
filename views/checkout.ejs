@@ -12,17 +12,34 @@
     <%- include('partials/header') %>
 
     <div class="main">
-        <div class="checkout">
-        <h1>Please input checkout information</h1>
-        <input type="text" id="fname" placeholder="First Name">
-        <input type="text" id="lname" placeholder="Last Name">
-        <input type="text" id="card" placeholder="Card Number">
-        <input type="text" id="experation" placeholder="Experation Date">
-        <input type="text" id="cvv" placeholder="CVV">
-        <p class="error" id="error">ERROR: Invalid Information</p>
-        <a href="/cart">
-        <Button type="submit" id ="btnSubmit" class="btn btn-primary">Check out</button>
-        </a>
+        <div id="enterCard" class="checkout visible">
+            <h1>Please input checkout information</h1>
+            <input type="text" id="fname" placeholder="First Name">
+            <input type="text" id="lname" placeholder="Last Name">
+            <input type="text" id="card" placeholder="Card Number">
+            <input type="text" id="experation" placeholder="Experation Date">
+            <input type="text" id="cvv" placeholder="CVV">
+            <p class="error" id="error">ERROR: Invalid Information</p>
+            <form action="/cart/doCheckout" method="POST">
+                <Button type="button" id ="useCardBtn" class="btn btn-primary">Use Saved Card</button>
+                <Button type="submit" id ="btnSubmit" class="btn btn-primary">Check out</button>
+            </form>
+        </div>
+        <div id="useCard" class="checkout">
+            <h1>Choose which card to use</h1>
+            <select class="cardSelect" name="type" id="cardSelect">
+                <option value="">-- Select Card --</option>
+                <% if (cards.length > 0) { %>
+                    <% cards.forEach( cards => { %>
+                        <option value="<%= cards.cardName %>"><%= cards.cardName %></option>
+                <% })} %>
+            </select>
+            <input type="text" id="cvv2" placeholder="CVV">
+            <p class="error" id="error2">ERROR: Invalid Information</p>
+            <form action="/cart/doCheckout" method="POST">
+                <Button type="button" id ="enterCardBtn" class="btn btn-primary">Enter Card</button>
+                <Button type="submit" id ="btnSubmit2" class="btn btn-primary">Check out</button>
+            </form>
         </div>
         <div class="cartBox">
             <p>Your Cart</p>
@@ -32,35 +49,31 @@
                 <th>Quantity</th>
                 <th>Cost</th>
             </tr>
-            <tr>
-                <td>A</td>
-                <td>5</td>
-                <td>$3.00</td>
-            </tr>
-            <tr>
-                <td>B</td>
-                <td>2</td>
-                <td>$10.00</td>
-            </tr>
-            <tr>
-                <td>C</td>
-                <td>10</td>
-                <td>$7.00</td>
-            </tr>
+            <% if (cart.length > 0) { %>
+                <% cart.forEach(product => { %>
+                <tr>
+                    <td><%= product.listName %></td>
+                    <td><%= product.cartQuanity %></td>
+                    <td>$<%= product.listPrice %></td>
+                </tr>
+            <% }) %>
+            <% } else { %>
+                <td>No items in cart</td>
+            <% } %>
             <tr>
                 <td></td>
                 <th>Subtotal</th>
-                <td>$20.00</td>
+                <td>$<%= subtotal %></td>
             </tr>
             <tr>
                 <td></td>
                 <th>Tax</th>
-                <td>$1.60</td>
+                <td>$<%= parseFloat(subtotal*.088).toFixed(2) %></td>
             </tr>
             <tr>
                 <td></td>
                 <th>Total</th>
-                <td>$21.60</td>
+                <td>$<%= parseFloat(subtotal*1.088).toFixed(2) %></td>
             </tr>
             </table>
         </div>
