@@ -19,7 +19,15 @@ router.post('/homePopulate', function(req, res, next) {
 });
 
 router.get('/order_history', function(req, res, next) {
-  res.render('order_history', { title: 'Express' });
+  const db = new DatabaseSync('./storedb.sqlite');
+  const userEmail = res.locals.currentUser ? res.locals.currentUser.email : null;
+
+  const orders = db.prepare(`
+  SELECT * FROM orders JOIN listings ON orders.orderList = listings.listNo WHERE orders.orderAct = ?`).all(userEmail);
+
+  db.close();
+
+  res.render('order_history', { ...res.locals, orders: orders });
 });
 
 router.get('/productPage', function(req, res, next) {
