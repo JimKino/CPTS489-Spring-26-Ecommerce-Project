@@ -19,6 +19,47 @@ router.get('/', function(req, res) {
   res.render('cart', { ...res.locals, cart: cartData, subtotal: subtotal.toFixed(2) });
 });
 
+router.get('/checkout', function(req, res, next) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  const userEmail = res.locals.currentUser ? res.locals.currentUser.email : null;
+
+  //get products in cart and their prices
+  const cartData = db.prepare(`
+  SELECT * FROM cart JOIN listings ON cart.cartList = listings.listNo WHERE cart.cartAct = ?`).all(userEmail);
+
+  const cards = db.prepare(`SELECT * FROM card WHERE cardOwner = ?`).all(userEmail);
+  // calculate subtotal
+  const subtotal = cartData.reduce((total, item) => {return total + (item.listPrice * item.cartQuanity);}, 0);
+
+  db.close();
+
+  res.render('checkout', { ...res.locals, cart: cartData, cards: cards , subtotal: subtotal.toFixed(2) });
+});
+
+router.post('/doCheckout', function(req, res) {
+  const db = new DatabaseSync('./storedb.sqlite');
+  const userEmail = res.locals.currentUser ? res.locals.currentUser.email : null;
+  var date = new Date();
+  //JS 0 indexes months for some reason
+  var month = date.getMonth()+1;
+
+  const cartData = db.prepare(`SELECT * FROM cart WHERE cartAct = ?`).all(userEmail);
+  if(cartData.length > 0)
+  {
+    for(let i = 0; i < cartData.length; i++)
+    {
+      const listing = db.prepare(`SELECT * FROM listings WHERE listNo = ?`).get(cartData[i].cartList);
+      var newQuant = listing.listQuantity - cartData[i].cartQuanity;
+      db.prepare('UPDATE listings SET listQuantity = ? WHERE listNo = ?').run(newQuant, cartData[i].cartList);
+      db.prepare('INSERT INTO orders (orderDate, orderQuanity, orderList, orderAct) VALUES (?, ?, ?, ?)')
+      .run(month + "-" + date.getDate() + "-" + date.getFullYear(), cartData[i].cartQuanity, cartData[i].cartList, userEmail);
+    }
+
+    db.prepare('DELETE FROM cart WHERE cartAct = ?').run(userEmail);
+  }
+  res.redirect('/');
+});
+
 //add to cart
 router.post('/add', (req, res) => {
   const db = new DatabaseSync('./storedb.sqlite');

@@ -15,32 +15,24 @@
             <p>Order History</p>
             <table>
             <tr>
-                <th>Order Id</th>
                 <th>Date</th>
                 <th>Item Name</th>
                 <th>Quanity</th>
                 <th>Cost</th>
             </tr>
             <tr>
-                <td>333333</td>
-                <td>2-27-2026</td>
-                <td>C</td>
-                <td>3</td>
-                <td>$7.00</td>
-            </tr>
-            <tr>
-                <td>222222</td>
-                <td>2-23-2026</td>
-                <td>B</td>
-                <td>10</td>
-                <td>$10.00</td>
-            </tr>
-            <tr>
-                <td>111111</td>
-                <td>2-20-2026</td>
-                <td>A</td>
-                <td>5</td>
-                <td>$3.00</td>
+                <% if (orders.length > 0) { %>
+                    <% orders.forEach(orders => { %>
+                    <tr>
+                        <td><%= orders.orderDate %></td>
+                        <td><%= orders.listName %></td>
+                        <td><%= orders.orderQuanity %></td>
+                        <td>$<%= orders.listPrice * orders.orderQuanity %></td>
+                    </tr>
+                <% }) %>
+                <% } else { %>
+                    <td>No orders found</td>
+                <% } %>
             </tr>
         </div>
     </div>
