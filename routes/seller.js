@@ -29,7 +29,6 @@ router.post('/products/:id/delete', function(req, res) {
   const productId = parseInt(req.params.id, 10);
   const db = new DatabaseSync('./storedb.sqlite');
   
-  // Check if product exists and belongs to this seller
   const product = db.prepare(
     'SELECT * FROM listings WHERE listNo = ? AND listSeller = ?'
   ).get(productId, user.email);
@@ -42,7 +41,6 @@ router.post('/products/:id/delete', function(req, res) {
     });
   }
   
-  // Delete the product
   db.prepare('DELETE FROM listings WHERE listNo = ?').run(productId);
   
   db.close();
@@ -89,7 +87,6 @@ router.get('/products/:id/edit', function(req, res) {
   const productId = parseInt(req.params.id, 10);
   const db = new DatabaseSync('./storedb.sqlite');
   
-  // Get the product and verify it belongs to this seller
   const product = db.prepare(
     'SELECT * FROM listings WHERE listNo = ? AND listSeller = ?'
   ).get(productId, user.email);
@@ -117,7 +114,6 @@ router.post('/products/:id/edit', function(req, res) {
   const productId = parseInt(req.params.id, 10);
   const { name, price, desc, quantity, image } = req.body;
   
-  // Validate required fields
   if (!name || !price || !desc || !quantity) {
     const db = new DatabaseSync('./storedb.sqlite');
     const product = db.prepare('SELECT * FROM listings WHERE listNo = ?').get(productId);
@@ -131,7 +127,6 @@ router.post('/products/:id/edit', function(req, res) {
   
   const db = new DatabaseSync('./storedb.sqlite');
   
-  // Verify ownership
   const product = db.prepare(
     'SELECT * FROM listings WHERE listNo = ? AND listSeller = ?'
   ).get(productId, user.email);
@@ -144,7 +139,6 @@ router.post('/products/:id/edit', function(req, res) {
     });
   }
   
-  // Check for duplicate name (excluding current product)
   const duplicate = db.prepare(
     'SELECT * FROM listings WHERE listSeller = ? AND LOWER(listName) = LOWER(?) AND listNo != ?'
   ).get(user.email, name, productId);
@@ -157,7 +151,6 @@ router.post('/products/:id/edit', function(req, res) {
     });
   }
   
-  // Update the listing
   const listImage = image ? "/images/" + image : product.listImage;
   
   db.prepare(`

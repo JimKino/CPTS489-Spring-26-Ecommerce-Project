@@ -48,25 +48,11 @@ router.post('/users/:email/delete', function(req, res) {
     });
   }
   
-  // Delete related records first (in order to respect foreign keys)
-  // 1. Delete reviews by this user
   db.prepare('DELETE FROM reviews WHERE revAct = ?').run(userEmail);
-  
-  // 2. Delete orders by this user
   db.prepare('DELETE FROM orders WHERE orderAct = ?').run(userEmail);
-  
-  // 3. Delete orders for listings by this seller
-  db.prepare(`DELETE FROM orders WHERE orderList IN 
-    (SELECT listNo FROM listings WHERE listSeller = ?)`).run(userEmail);
-  
-  // 4. Delete reviews for listings by this seller
-  db.prepare(`DELETE FROM reviews WHERE revList IN 
-    (SELECT listNo FROM listings WHERE listSeller = ?)`).run(userEmail);
-  
-  // 5. Delete listings by this seller
+  db.prepare(`DELETE FROM orders WHERE orderList IN (SELECT listNo FROM listings WHERE listSeller = ?)`).run(userEmail);
+  db.prepare(`DELETE FROM reviews WHERE revList IN (SELECT listNo FROM listings WHERE listSeller = ?)`).run(userEmail);
   db.prepare('DELETE FROM listings WHERE listSeller = ?').run(userEmail);
-  
-  // 6. Finally, delete the user
   db.prepare('DELETE FROM accounts WHERE actEmail = ?').run(userEmail);
   
   db.close();
@@ -83,16 +69,9 @@ router.get('/analytics', function(req, res) {
   
   const db = new DatabaseSync('./storedb.sqlite');
   
-  // Total users
   const totalUsers = db.prepare('SELECT COUNT(*) as count FROM accounts').get().count;
-  
-  // Total products (all listings)
   const totalProducts = db.prepare('SELECT COUNT(*) as count FROM listings').get().count;
-  
-  // Total orders
   const totalOrders = db.prepare('SELECT COUNT(*) as count FROM orders').get().count;
-  
-  // Total revenue (sum of orderQuantity * listPrice)
   const revenueResult = db.prepare(`
     SELECT SUM(o.orderQuantity * l.listPrice) as revenue
     FROM orders o
@@ -101,7 +80,6 @@ router.get('/analytics', function(req, res) {
   
   const totalRevenue = (revenueResult.revenue || 0).toFixed(2);
   
-  // Simple bar chart data: count orders by seller
   const topSellers = db.prepare(`
     SELECT 
       a.actFname || ' ' || a.actLname as sellerName,
@@ -114,7 +92,6 @@ router.get('/analytics', function(req, res) {
     LIMIT 7
   `).all();
   
-  // Find max for scaling
   const maxOrders = topSellers.length > 0 ? Math.max(...topSellers.map(s => s.orderCount)) : 1;
   
   db.close();
@@ -166,7 +143,6 @@ router.post('/reviews/:id/delete', function(req, res) {
   const reviewId = parseInt(req.params.id, 10);
   const db = new DatabaseSync('./storedb.sqlite');
   
-  // Delete review by rowid
   db.prepare('DELETE FROM reviews WHERE rowid = ?').run(reviewId);
   
   db.close();
