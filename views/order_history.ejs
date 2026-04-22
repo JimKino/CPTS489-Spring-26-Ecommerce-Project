@@ -28,7 +28,7 @@
                         <td><%= orders.orderDate %></td>
                         <td><%= orders.listName %></td>
                         <td><%= orders.orderQuantity %></td>
-                        <td>$<%= orders.listPrice * orders.orderQuantity %></td>
+                        <td>$<%= (orders.listPrice * orders.orderQuantity).toFixed(2) %></td>
                     </tr>
                 <% }) %>
                 <% } else { %>
