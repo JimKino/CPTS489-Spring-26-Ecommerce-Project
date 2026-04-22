@@ -67,21 +67,21 @@ db.exec(`CREATE TABLE IF NOT EXISTS reviews (
   FOREIGN KEY(revAct) REFERENCES accounts(actEmail) ON UPDATE CASCADE )`);
 
 // //TESTING DEFAULT VALUES, comment out if duplicate data entires error
-/* db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
-   VALUES (?, ?, ?, ?, ?)`).run("seller@gmail.com", "password", "first", "last", "seller");
- db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
-   VALUES (?, ?, ?, ?, ?)`).run("seller2@gmail.com", "password", "2first", "2last", "seller");
- db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
-   VALUES (?, ?, ?, ?, ?)`).run("admin@gmail.com", "password", "first", "last", "admin");
- db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
-   VALUES (?, ?, ?, ?, ?)`).run("cust@gmail.com", "password", "first", "last", "customer");
- db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-    VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
- db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-   VALUES (?, ?, ?, ?, ?, ?)`).run("Garlic", "1 Bulb of Garlic", "/images/garlic.jpg", 0.85, 20, "seller@gmail.com");
- db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
-   VALUES (?, ?, ?, ?, ?, ?)`).run("Milk", "1 glass of Milk", "/images/milk.jpg", 10.99, 0, "seller@gmail.com");
-*/
+//  db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//    VALUES (?, ?, ?, ?, ?)`).run("seller@gmail.com", "password", "first", "last", "seller");
+//  db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//    VALUES (?, ?, ?, ?, ?)`).run("seller2@gmail.com", "password", "2first", "2last", "seller");
+//  db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//    VALUES (?, ?, ?, ?, ?)`).run("admin@gmail.com", "password", "first", "last", "admin");
+//  db.prepare(`INSERT INTO accounts (actEmail, actPassword, actFname, actLname, actType)
+//    VALUES (?, ?, ?, ?, ?)`).run("cust@gmail.com", "password", "first", "last", "customer");
+//  db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//     VALUES (?, ?, ?, ?, ?, ?)`).run("Carrots", "Bundle of Carrots", "/images/Carrot.png", 0.99, 25, "seller@gmail.com");
+//  db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//    VALUES (?, ?, ?, ?, ?, ?)`).run("Garlic", "1 Bulb of Garlic", "/images/garlic.jpg", 0.85, 20, "seller@gmail.com");
+//  db.prepare(`INSERT INTO listings (listName, listDesc, listImage, listPrice, listQuantity, listSeller)
+//    VALUES (?, ?, ?, ?, ?, ?)`).run("Milk", "1 glass of Milk", "/images/milk.jpg", 10.99, 0, "seller@gmail.com");
+
 
 db.close();
 // view engine setup
