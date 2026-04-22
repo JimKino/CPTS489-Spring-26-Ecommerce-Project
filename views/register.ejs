@@ -6,6 +6,7 @@
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">  
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/authentication.css">
 </head>
 <body>
     <%- include('partials/header') %>
@@ -15,6 +16,9 @@
             <div class="col-4" >
                 <h2>Register</h2>
                 <form action="add_user" method="POST">
+                    <div id="registerError" class="alert alert-danger" style="display: none;">
+                        Error message here
+                    </div>
                     <div class="mb-3">
                         <label for="fname" class="form-label">First Name</label>
                         <input name="fname" type="text" class="form-control" id="fname" placeholder="Enter first name">
@@ -31,15 +35,12 @@
                         <label for="password" class="form-label">Password</label>
                         <input name="password" type="password" class="form-control" id="password" placeholder="Enter password">
                     </div>
-                    <div class="form-check mb-3">
-                        <label for="loginAuto" class="form-label">Log in on account creation</label>
-                        <input type="checkbox" class="form-check-label" id="loginAuto">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <button type="submit" id="btnRegister" class="btn btn-primary">Create Account</button>
                 </form>
             </div>
     </section>
 
+    <script src="/javascripts/authentication.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

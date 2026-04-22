@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
-  res.render('index');
+  res.render('index', { errorMessage: null });
 });
 
 /* GET users listing. */
@@ -81,10 +81,9 @@ router.post('/delete_card/:cardName/:email', function(req, res, next) {
 router.post('/login_user', function(req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
-
+  
   //open and close the database in each post call, dont leave connections open
   const db = new DatabaseSync('./storedb.sqlite');
-
   //get registration information
   const user = db.prepare('SELECT * FROM accounts WHERE actEmail = ? AND actPassword = ?').get(email, password);
   db.close();
@@ -97,25 +96,23 @@ router.post('/login_user', function(req, res, next) {
       lastName: user.actLname,
       type: user.actType
     });
-
-    if (user && user.email) {
+    if (user && user.actEmail) {
       const db = new DatabaseSync('./storedb.sqlite');
-      res.locals.userCart = db.prepare('SELECT cartList, cartQuantity FROM cart WHERE cartAct = ?').all(user.email);
+      res.locals.userCart = db.prepare('SELECT cartList, cartQuantity FROM cart WHERE cartAct = ?').all(user.actEmail);
       db.close();
     } else {
       res.locals.userCart = [];
     }
-
     res.redirect('/');
   } else { //failed
-    res.render('index');
+    res.render('index', { errorMessage: 'Invalid email or password' });
   }
-})
+});
 
 //Log out
 router.post('/logout_user', function(req, res, next) {
   res.clearCookie('user');
   res.redirect('/')
-})
+});
 
 module.exports = router;
