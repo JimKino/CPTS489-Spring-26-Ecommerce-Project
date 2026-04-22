@@ -11,9 +11,7 @@ router.get('/products', function(req, res) {
   }
   
   const db = new DatabaseSync('./storedb.sqlite');
-  const listings = db.prepare(
-    'SELECT * FROM listings WHERE listSeller = ?'
-  ).all(user.email);
+  const listings = db.prepare('SELECT * FROM listings WHERE listSeller = ?').all(user.email);
   
   db.close();
   res.render('UC-011', {...res.locals, products: listings});
@@ -29,9 +27,7 @@ router.post('/products/:id/delete', function(req, res) {
   const productId = parseInt(req.params.id, 10);
   const db = new DatabaseSync('./storedb.sqlite');
   
-  const product = db.prepare(
-    'SELECT * FROM listings WHERE listNo = ? AND listSeller = ?'
-  ).get(productId, user.email);
+  const product = db.prepare('SELECT * FROM listings WHERE listNo = ? AND listSeller = ?').get(productId, user.email);
   
   if (!product) {
     db.close();
@@ -87,9 +83,7 @@ router.get('/products/:id/edit', function(req, res) {
   const productId = parseInt(req.params.id, 10);
   const db = new DatabaseSync('./storedb.sqlite');
   
-  const product = db.prepare(
-    'SELECT * FROM listings WHERE listNo = ? AND listSeller = ?'
-  ).get(productId, user.email);
+  const product = db.prepare('SELECT * FROM listings WHERE listNo = ? AND listSeller = ?').get(productId, user.email);
   
   db.close();
   
@@ -119,10 +113,7 @@ router.post('/products/:id/edit', function(req, res) {
     const product = db.prepare('SELECT * FROM listings WHERE listNo = ?').get(productId);
     db.close();
     
-    return res.render('edit_item', {
-      product,
-      error: 'All product fields are required.'
-    });
+    return res.render('edit_item', {product, error: 'All product fields are required.'});
   }
   
   const db = new DatabaseSync('./storedb.sqlite');
@@ -133,10 +124,7 @@ router.post('/products/:id/edit', function(req, res) {
   
   if (!product) {
     db.close();
-    return res.status(404).render('error', {
-      message: 'Product not found or you do not have permission to edit it',
-      error: { status: 404, stack: '' }
-    });
+    return res.status(404).render('error', {message: 'Product not found or you do not have permission to edit it',error: { status: 404, stack: '' }});
   }
   
   const duplicate = db.prepare(
@@ -145,19 +133,12 @@ router.post('/products/:id/edit', function(req, res) {
   
   if (duplicate) {
     db.close();
-    return res.render('edit_item', {
-      product: { ...product, listName: name, listPrice: price, listDesc: desc, listQuantity: quantity },
-      error: 'You already have a product with this name.'
-    });
+    return res.render('edit_item', {product: { ...product, listName: name, listPrice: price, listDesc: desc, listQuantity: quantity },error: 'You already have a product with this name.'});
   }
   
   const listImage = image ? "/images/" + image : product.listImage;
   
-  db.prepare(`
-    UPDATE listings 
-    SET listName = ?, listPrice = ?, listDesc = ?, listQuantity = ?, listImage = ?
-    WHERE listNo = ?
-  `).run(name, parseFloat(price), desc, parseInt(quantity, 10), listImage, productId);
+  db.prepare(`UPDATE listings SET listName = ?, listPrice = ?, listDesc = ?, listQuantity = ?, listImage = ? WHERE listNo = ?`).run(name, parseFloat(price), desc, parseInt(quantity, 10), listImage, productId);
   
   db.close();
   res.redirect('/seller/products');

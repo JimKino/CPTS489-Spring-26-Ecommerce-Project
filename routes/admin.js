@@ -96,11 +96,7 @@ router.get('/analytics', function(req, res) {
   
   db.close();
   
-  res.render('UC-014', {
-    stats: { totalUsers, totalProducts, totalOrders, totalRevenue },
-    topSellers,
-    maxOrders
-  });
+  res.render('UC-014', { stats: { totalUsers, totalProducts, totalOrders, totalRevenue }, topSellers, maxOrders});
 });
 
 // View all reviews
